@@ -14,7 +14,7 @@ global $wp_roles, $wpdb;
 $action = $_GET['action'];
 
 /* If a role has been updated, set the action to 'role-updated'. */
-if ( $_POST[$hidden_field_name] == 'Y' )
+if ( $_POST['edit-role-saved'] == 'Y' )
 	$action = 'role-updated';
 
 /* If the bulk delete (first submit) has been selected. */
@@ -131,7 +131,7 @@ switch( $action ) {
 		$role = $_GET['role'];
 
 		/* Load the edit role form. */
-		require_once('edit-role-form.php');
+		require_once( 'edit-role-form.php' );
 		break;
 
 	/* If a role has been selected to be edited. */
@@ -145,7 +145,7 @@ switch( $action ) {
 		$role = $_GET['role'];
 
 		/* Load the edit role form. */
-		require_once('edit-role-form.php');
+		require_once( 'edit-role-form.php' );
 
 		break;
 

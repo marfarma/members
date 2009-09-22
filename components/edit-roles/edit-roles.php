@@ -108,17 +108,17 @@ ksort( $roles_loop_array ); ?>
 			<?php wp_nonce_field( members_get_nonce( 'edit-roles' ) ); ?>
 
 			<ul class="subsubsub">
-				<li><a <?php if ( 'active' !== $_GET['role_status'] && 'inactive' !== $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles" ) ); ?>">All <span class="count">(<span id="all_count"><?php echo $all_roles; ?></span>)</span></a> | </li>
-				<li><a <?php if ( 'active' == $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles&amp;role_status=active" ) ); ?>">Active <span class="count">(<span id="active_count"><?php echo $active_roles; ?></span>)</span></a> | </li>
-				<li><a <?php if ( 'inactive' == $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles&amp;role_status=inactive" ) ); ?>">Inactive <span class="count">(<span id="inactive_count"><?php echo $inactive_roles; ?></span>)</span></a></li>
+				<li><a <?php if ( 'active' !== $_GET['role_status'] && 'inactive' !== $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles" ) ); ?>"><?php _e('All', 'members'); ?> <span class="count">(<span id="all_count"><?php echo $all_roles; ?></span>)</span></a> | </li>
+				<li><a <?php if ( 'active' == $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles&amp;role_status=active" ) ); ?>"><?php _e('Active', 'members'); ?> <span class="count">(<span id="active_count"><?php echo $active_roles; ?></span>)</span></a> | </li>
+				<li><a <?php if ( 'inactive' == $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles&amp;role_status=inactive" ) ); ?>"><?php _e('Inactive', 'members'); ?> <span class="count">(<span id="inactive_count"><?php echo $inactive_roles; ?></span>)</span></a></li>
 			</ul><!-- .subsubsub -->
 
 			<div class="tablenav">
 
 				<div class="alignleft actions">
 					<select name="action">
-						<option value="" selected="selected">Bulk Actions</option>
-						<?php if ( $delete_roles ) echo '<option value="delete">Delete</option>'; ?>
+						<option value="" selected="selected"><?php _e('Bulk Actions', 'members'); ?></option>
+						<?php if ( $delete_roles ) echo '<option value="delete">' . __('Delete', 'members') . '</option>'; ?>
 					</select>
 					<input type="submit" value="<?php _e('Apply', 'members'); ?>" name="doaction" id="doaction" class="button-secondary action" />
 				</div><!-- .alignleft .actions -->
@@ -173,7 +173,7 @@ ksort( $roles_loop_array ); ?>
 								<?php /* Delete role link. */
 								if ( $delete_roles && $role !== $default_role && !$user->has_cap( $role ) ) {
 									$delete_link = admin_url( wp_nonce_url( "users.php?page=roles&amp;action=delete&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?>
-									| <a href="<?php echo $delete_link; ?>" title="<?php printf( __('Delete the %1$s role', 'members'), $name ); ?>">Delete</a>
+									| <a href="<?php echo $delete_link; ?>" title="<?php printf( __('Delete the %1$s role', 'members'), $name ); ?>"><?php _e('Delete', 'members'); ?></a>
 								<?php }
 
 								/* Link to change the default role Options General. */
@@ -233,10 +233,10 @@ ksort( $roles_loop_array ); ?>
 
 				<div class="alignleft actions">
 					<select name="action2">
-						<option value="" selected="selected">Bulk Actions</option>
-						<?php if ( $delete_roles ) echo '<option value="delete">Delete</option>'; ?>
+						<option value="" selected="selected"><?php _e('Bulk Actions', 'members'); ?></option>
+						<?php if ( $delete_roles ) echo '<option value="delete">' . __('Delete', 'members') . '</option>'; ?>
 					</select>
-					<input type="submit" value="Apply" name="doaction2" id="doaction2" class="button-secondary action" />
+					<input type="submit" value="<?php _e('Apply', 'members'); ?>" name="doaction2" id="doaction2" class="button-secondary action" />
 				</div><!-- .alignleft .actions -->
 
 				<br class="clear" />

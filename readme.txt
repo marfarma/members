@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: admin, cms, community, profile, shortcode, user, users
 Requires at least: 2.8
 Tested up to: 2.8.4
-Stable tag: 0.1
+Stable tag: 0.1.1
 
 A user, role, and content management plugin that makes WordPress a more powerful CMS.
 
@@ -49,6 +49,14 @@ Most things should be fairly straightforward, but I've included an in-depth guid
 You'll want to look over that.  It's probably the most in-depth plugin documentation you'll ever read. ;)
 
 == Changelog ==
+
+**Version 0.1.1**
+
+* Fixed a bug with the Content Permissions component that restricted access to everyone.
+* Added missing localization call: `load_plugin_textdomain()`.
+* Added new `/languages` folder for holding translations.
+* Added `members-en_EN.po`, `members-en_EN.mo`, and `members.pot` to the `/languages` folder.
+* Updated some unlocalized strings.
 
 **Version 0.1**
 

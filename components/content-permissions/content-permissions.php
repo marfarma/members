@@ -45,7 +45,7 @@ function members_content_permissions_comments( $template ) {
 
 	$roles = get_post_meta( $wp_query->post->ID, '_role', false );
 
-	if ( is_array( $roles ) ) {
+	if ( !empty( $roles ) && is_array( $roles ) ) {
 		foreach( $roles as $role ) {
 			if ( !is_feed() && ( current_user_can( $role ) || current_user_can( 'restrict_content' ) ) )
 				return $template;
@@ -89,7 +89,7 @@ function members_content_permissions_protect( $content ) {
 
 	$roles = get_post_meta( $post->ID, '_role', false );
 
-	if ( is_array( $roles ) ) {
+	if ( !empty( $roles ) && is_array( $roles ) ) {
 		foreach( $roles as $role ) {
 			if ( !is_feed() && ( current_user_can( $role ) || current_user_can( 'restrict_content' ) ) )
 				return $content;

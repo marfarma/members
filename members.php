@@ -3,7 +3,7 @@
  * Plugin Name: Members
  * Plugin URI: http://justintadlock.com/archives/2009/09/17/members-wordpress-plugin
  * Description: A user, role, and content management plugin for controlling permissions and access. A plugin for making WordPress a more powerful <acronym title="Content Management System">CMS</acronym>.
- * Version: 0.1
+ * Version: 0.1.1
  * Author: Justin Tadlock
  * Author URI: http://justintadlock.com
  *
@@ -40,6 +40,9 @@ add_action( 'plugins_loaded', 'members_plugin_init' );
  * @since 0.1
  */
 function members_plugin_init() {
+
+	/* Load the translation of the plugin. */
+	load_plugin_textdomain( 'members', false, 'members/languages' );
 
 	/* Load global functions for the WordPress admin. */
 	if ( is_admin() )

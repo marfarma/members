@@ -146,7 +146,7 @@ if ( $_POST['edit-role-saved'] == 'Y' ) {
 			</div><!-- .postbox .open -->
 
 			<p class="submit" style="clear:both;">
-				<input type="submit" name="Submit"  class="button-primary" value="<?php _e('Save Changes', 'cleaner_gallery') ?>" />
+				<input type="submit" name="Submit"  class="button-primary" value="<?php _e('Update Role', 'members') ?>" />
 				<input type="hidden" name="edit-role-saved" value="Y" />
 			</p><!-- .submit -->
 
