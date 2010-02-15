@@ -1,5 +1,5 @@
 === Members ===
-Contributors: greenshady
+Contributors: greenshady, ptahdunbar
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3687060
 Tags: admin, cms, community, profile, shortcode, user, users
 Requires at least: 2.8
