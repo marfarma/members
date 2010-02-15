@@ -21,13 +21,13 @@
  */
 
 /* Set constant path to the members plugin directory. */
-define( MEMBERS_DIR, plugin_dir_path( __FILE__ ) );
+define( 'MEMBERS_DIR', plugin_dir_path( __FILE__ ) );
 
 /* Set constant path to the members plugin URL. */
-define( MEMBERS_URL, plugin_dir_url( __FILE__ ) );
+define( 'MEMBERS_URL', plugin_dir_url( __FILE__ ) );
 
 /* Set constant path to the members components directory. */
-define( MEMBERS_COMPONENTS, MEMBERS_DIR . 'components' );
+define( 'MEMBERS_COMPONENTS', MEMBERS_DIR . 'components' );
 
 /* Launch the plugin. */
 add_action( 'plugins_loaded', 'members_plugin_init' );
