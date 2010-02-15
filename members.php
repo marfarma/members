@@ -46,14 +46,14 @@ function members_plugin_init() {
 
 	/* Load global functions for the WordPress admin. */
 	if ( is_admin() )
-		require_once( MEMBERS_DIR . '/functions-admin.php' );
+		require_once( MEMBERS_DIR . 'functions-admin.php' );
 
 	/* Load global functions for the front end of the site. */
 	else
-		require_once( MEMBERS_DIR . '/functions.php' );
+		require_once( MEMBERS_DIR . 'functions.php' );
 
 	/* Load the components system, which is the file that has all the components-related functions. */
-	require_once( MEMBERS_DIR . '/components.php' );
+	require_once( MEMBERS_DIR . 'components.php' );
 
 	/* Members components settings page. */
 	add_action( 'admin_menu', 'members_settings_page_init' );
@@ -92,7 +92,9 @@ function members_core_globals_setup() {
  * @uses add_submenu_page() Creates a submenu for the Settings menu item.
  */
 function members_settings_page_init() {
-	$members_settings_page = add_submenu_page( 'options-general.php', __('Members Components', 'members'), __('Members Components', 'members'), 'activate_plugins', 'members-components', 'members_settings_page' );
+	global $members;
+	
+	$members->settings_page = add_submenu_page( 'options-general.php', __('Members Components', 'members'), __('Members Components', 'members'), 'activate_plugins', 'members-components', 'members_settings_page' );
 }
 
 /**
@@ -111,7 +113,7 @@ function members_register_settings() {
  * @since 0.1
  */
 function members_settings_page() {
-	require_once( MEMBERS_DIR . '/settings.php' );
+	require_once( MEMBERS_DIR . 'settings.php' );
 }
 
 /**
@@ -123,8 +125,6 @@ function members_settings_page() {
  * @return $input array Validated values to return.
  */
 function members_settings_validate( $input ) {
-	global $members_components;
-
 	if ( !is_array( $input ) )
 		return $input;
 
