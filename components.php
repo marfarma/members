@@ -87,7 +87,7 @@ function members_load_components() {
 		if ( $component->callback && function_exists( $component->callback ) ) {
 
 			/* If a hook has been input, add the component callback function to the action hook. */
-			if ( $component->hook )
+			if ( isset($component->hook) )
 				add_action( $component->hook, $component->callback );
 
 			/* Call the function directly if there is no hook. */
@@ -112,10 +112,8 @@ function get_members_component( $component ) {
 }
 
 /**
- * Checks if a component has been activated by the user.  If it has, return true.  If not,
+ * Checks if a component has been activated by the user. If it has, return true. If not,
  * return false.
- * @todo Add the activated state to the $members_components variable instead of making
- * a completely new global variable with $members_components_active.
  *
  * @since 0.1
  * @global $members object The global members object.
@@ -128,7 +126,8 @@ function is_active_members_component( $component = '' ) {
 	if ( !$component )
 		return false;
 
-	if ( !is_array( $members->active_components ) )
+
+	if ( !isset( $members->active_components ) )
 		$members->active_components = get_option( 'members_settings' );
 
 	return $members->active_components[$component];
