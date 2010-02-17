@@ -168,7 +168,7 @@ ksort( $roles_loop_array ); ?>
 							<a href="<?php echo $edit_link; ?>" title="<?php printf( __('Edit the %1$s role', 'members'), $name ); ?>"><strong><?php echo $name; ?></strong></a>
 
 							<div class="row-actions">
-								<a href="<?php echo $edit_link; ?>" title="<?php printf( __('Edit the %1$s role', 'members'), $name ); ?>"><? _e('Edit', 'members'); ?></a> 
+								<a href="<?php echo $edit_link; ?>" title="<?php printf( __('Edit the %1$s role', 'members'), $name ); ?>"><?php _e('Edit', 'members'); ?></a> 
 
 								<?php /* Delete role link. */
 								if ( $delete_roles && $role !== $default_role && !$user->has_cap( $role ) ) {
