@@ -10,8 +10,11 @@
 /* Get the current role object to edit. */
 $role = get_role( $role );
 
+/* Get all the capabilities */
+$capabilities = members_get_capabilities();
+
 /* Check if the form has been submitted. */
-if ( $_POST['edit-role-saved'] == 'Y' ) {
+if ( isset($_POST['edit-role-saved']) && 'Y' == $_POST['edit-role-saved'] ) {
 
 	/* Verify the nonce. */
 	check_admin_referer( members_get_nonce( 'edit-roles' ) );
@@ -20,10 +23,13 @@ if ( $_POST['edit-role-saved'] == 'Y' ) {
 	$role_updated = true;
 
 	/* Loop through all available capabilities. */
-	foreach ( members_get_capabilities() as $cap ) {
+	foreach ( $capabilities as $cap ) {
 
 		/* Get the posted capability. */
-		$posted_cap = $_POST['role-caps']["{$role->name}-{$cap}"];
+		$posted_cap = isset($_POST['role-caps']["{$role->name}-{$cap}"]) ? $_POST['role-caps']["{$role->name}-{$cap}"] : false;
+		
+		if ( false == $posted_cap )
+			continue;
 
 		/* If the role doesn't have the capability and it was selected, add it. */
 		if ( !$role->has_cap( $cap ) && $posted_cap )
@@ -61,7 +67,7 @@ if ( $_POST['edit-role-saved'] == 'Y' ) {
 
 	<h2><?php printf(__('Edit the %1$s role', 'members'), $role->name ); ?></h2>
 
-	<?php if ( $role_updated ) members_admin_message( '', __('Role updated.', 'members') ); ?>
+	<?php if ( isset($role_updated) and $role_updated ) members_admin_message( '', __('Role updated.', 'members') ); ?>
 
 	<?php do_action( 'members_pre_edit_role_form' ); //Available pre-form hook for displaying messages. ?>
 
@@ -90,7 +96,7 @@ if ( $_POST['edit-role-saved'] == 'Y' ) {
 						<?php
 
 							/* Looop through each available capability. */
-							foreach ( members_get_capabilities() as $cap ) {
+							foreach ( $capabilities as $cap ) {
 
 								/* If the role has the capability, set the checkbox to 'checked'. */
 								if ( $role->has_cap( $cap ) )
