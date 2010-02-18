@@ -58,10 +58,12 @@ $default_role = get_option( 'default_role' );
 /* Sort out the roles, active roles, and inactive roles. */
 $all_roles = $active_roles = $inactive_roles = 0;
 
+$active_roles_arr = $inactive_roles_arr = array();
+
 /* Loop through all of the roles, adding each role to its respective category (active, inactive). */
 foreach ( $wp_roles->role_names as $role => $name ) {
 	$all_roles++;
-	if ( $avail_roles[$role] ) {
+	if ( isset($avail_roles[$role]) ) {
 		$active_roles++;
 		$active_roles_arr[$role] = $name;
 	}
@@ -71,18 +73,20 @@ foreach ( $wp_roles->role_names as $role => $name ) {
 	}
 }
 
+$role_status = isset( $_GET['role_status'] ) ? $_GET['role_status'] : 'all';
+
 /* Set variables for when role_status is active. */
-if ( 'active' == $_GET['role_status'] ) {
+if ( 'active' == $role_status ) {	
 	$roles_loop_array = $active_roles_arr;
 	$title = __('Edit Active Roles', 'members');
-	$current_page = admin_url( esc_url( "users.php?page=roles&role_status=active" ) );
+	$current_page = admin_url( esc_url( 'users.php?page=roles&role_status=active' ) );
 }
 
 /* Set variables for when role_status is inactive. */
-elseif ( 'inactive' == $_GET['role_status'] ) {
+elseif ( 'inactive' == $role_status ) {
 	$roles_loop_array = $inactive_roles_arr;
 	$title = __('Edit Inactive Roles', 'members');
-	$current_page = admin_url( esc_url( "users.php?page=roles&role_status=inactive" ) );
+	$current_page = admin_url( esc_url( 'users.php?page=roles&role_status=inactive' ) );
 }
 
 /* Set default variables for when role_status is neither active nor inactive. */
@@ -108,9 +112,9 @@ ksort( $roles_loop_array ); ?>
 			<?php wp_nonce_field( members_get_nonce( 'edit-roles' ) ); ?>
 
 			<ul class="subsubsub">
-				<li><a <?php if ( 'active' !== $_GET['role_status'] && 'inactive' !== $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles" ) ); ?>"><?php _e('All', 'members'); ?> <span class="count">(<span id="all_count"><?php echo $all_roles; ?></span>)</span></a> | </li>
-				<li><a <?php if ( 'active' == $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles&amp;role_status=active" ) ); ?>"><?php _e('Active', 'members'); ?> <span class="count">(<span id="active_count"><?php echo $active_roles; ?></span>)</span></a> | </li>
-				<li><a <?php if ( 'inactive' == $_GET['role_status'] ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( "users.php?page=roles&amp;role_status=inactive" ) ); ?>"><?php _e('Inactive', 'members'); ?> <span class="count">(<span id="inactive_count"><?php echo $inactive_roles; ?></span>)</span></a></li>
+				<li><a <?php if ( 'all' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles' ) ); ?>"><?php _e('All', 'members'); ?> <span class="count">(<span id="all_count"><?php echo $all_roles; ?></span>)</span></a> | </li>
+				<li><a <?php if ( 'active' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=active' ) ); ?>"><?php _e('Active', 'members'); ?> <span class="count">(<span id="active_count"><?php echo $active_roles; ?></span>)</span></a> | </li>
+				<li><a <?php if ( 'inactive' == $role_status ) echo 'class="current"'; ?> href="<?php echo admin_url( esc_url( 'users.php?page=roles&amp;role_status=inactive' ) ); ?>"><?php _e('Inactive', 'members'); ?> <span class="count">(<span id="inactive_count"><?php echo $inactive_roles; ?></span>)</span></a></li>
 			</ul><!-- .subsubsub -->
 
 			<div class="tablenav">
@@ -154,7 +158,7 @@ ksort( $roles_loop_array ); ?>
 
 					<?php $name = str_replace( '|User role', '', $name ); ?>
 
-					<tr valign="top" class="<?php if ( $avail_roles[$role] ) echo 'active'; else echo 'inactive'; ?>">
+					<tr valign="top" class="<?php if ( isset($avail_roles[$role]) ) echo 'active'; else echo 'inactive'; ?>">
 
 						<th class="manage-column column-cb check-column">
 							<?php if ( $role !== $default_role && !$user->has_cap( $role ) ) { ?>
@@ -182,7 +186,7 @@ ksort( $roles_loop_array ); ?>
 								<?php }
 
 								/* If there are users, provide a link to the users page of that role. */
-								if ( $avail_roles[$role] ) { ?>
+								if ( isset($avail_roles[$role]) ) { ?>
 									| <a href="<?php echo admin_url( esc_url( "users.php?role={$role}" ) ); ?>" title="<?php printf( __('View all users with the %1$s role', 'members'), $name ); ?>"><?php _e('View Users', 'members'); ?></a> 
 								<?php } ?>
 
@@ -196,9 +200,9 @@ ksort( $roles_loop_array ); ?>
 
 						<td class='desc'>
 							<p><?php /* Check if any users are assigned to the role.  If so, display a link to the role's users page. */
-							if ( 1 < $avail_roles[$role] )
+							if ( isset($avail_roles[$role]) && 1 < count($avail_roles[$role]) )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __('View all users with the %1$s role', 'members'), $name ) . '">' . sprintf( __('%1$s Users', 'members'), $avail_roles[$role] ) . '</a>'; 
-							elseif ( 1 == $avail_roles[$role] )
+							elseif ( isset($avail_roles[$role]) && 1 == count($avail_roles[$role]) )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __('View all users with the %1$s role', 'members'), $name ) . '">' . __('1 User', 'members') . '</a>'; 
 							else
 								echo '<em>' . __('No users have this role.', 'members') . '</em>';

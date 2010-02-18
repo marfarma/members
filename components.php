@@ -136,22 +136,18 @@ function is_active_members_component( $component = '' ) {
  * @since 0.1
  */
 function members_component_edit_roles() {
-	if ( is_admin() && is_active_members_component( 'edit_roles' ) ) {
+	if ( is_admin() && is_active_members_component( 'edit_roles' ) )
 		require_once( MEMBERS_COMPONENTS . '/edit-roles/default.php' );
-		add_action( 'admin_menu', 'members_component_load_edit_roles' );
-	}
 }
 
 /**
- * New roles component.  This allows you to create new roles.
+ * New roles component. This allows you to create new roles.
  *
  * @since 0.1
  */
 function members_component_new_roles() {
-	if ( is_admin() && is_active_members_component( 'new_roles' ) ) {
+	if ( is_admin() && is_active_members_component( 'new_roles' ) )
 		require_once( MEMBERS_COMPONENTS . '/new-roles/default.php' );
-		add_action( 'admin_menu', 'members_component_load_new_roles' );
-	}
 }
 
 /**
@@ -163,8 +159,6 @@ function members_component_content_permissions() {
 	if ( is_active_members_component( 'content_permissions' ) ) {
 		require_once( MEMBERS_COMPONENTS . '/content-permissions/content-permissions.php' );
 		require_once( MEMBERS_COMPONENTS . '/content-permissions/meta-box.php' );
-		add_action( 'admin_menu', 'members_content_permissions_create_meta_box' );
-		add_action( 'save_post', 'members_content_permissions_save_meta', 1, 2 );
 	}
 }
 

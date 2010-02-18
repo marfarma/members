@@ -11,18 +11,18 @@
 global $wp_roles, $wpdb;
 
 /* Get the current action performed by the user. */
-$action = $_GET['action'];
+$action = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : false;
 
 /* If a role has been updated, set the action to 'role-updated'. */
-if ( $_POST['edit-role-saved'] == 'Y' )
+if ( isset($_POST['edit-role-saved']) and $_POST['edit-role-saved'] == 'Y' )
 	$action = 'role-updated';
 
 /* If the bulk delete (first submit) has been selected. */
-elseif ( 'delete' == $_POST['action'] && __('Apply', 'members') == $_POST['doaction'] )
+elseif ( 'delete' == $action && ( isset( $_POST['doaction'] ) && __('Apply', 'members') == $_POST['doaction']) )
 	$action = 'bulk-delete';
 
 /* If the bulk delete (second submit) has been selected. */
-elseif ( 'delete' == $_POST['action2'] && __('Apply', 'members') == $_POST['doaction2'] )
+elseif ( 'delete' == $action && ( isset($_POST['doaction2']) && __('Apply', 'members') == $_POST['doaction2']) )
 	$action = 'bulk-delete';
 
 /* Choose which actions to perform and pages to load according to the $action variable. */
