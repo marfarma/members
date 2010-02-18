@@ -40,7 +40,7 @@ add_action( 'plugins_loaded', 'members_plugin_init' );
  * @since 0.1
  */
 function members_plugin_init() {
-
+	
 	/* Load the translation of the plugin. */
 	load_plugin_textdomain( 'members', false, 'members/languages' );
 
@@ -127,9 +127,9 @@ function members_settings_page() {
 function members_settings_validate( $input ) {
 	if ( !is_array( $input ) )
 		return $input;
-
-	foreach ( $input as $value )
-		$input[$value] = ( $input[$value] == 1 ? 1 : 0 );
+	
+	foreach ( $input as $key => $value )
+		$input[$key] = ( $input[$key] == 1 ? 1 : 0 );
 
 	return $input;
 }
