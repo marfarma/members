@@ -49,10 +49,10 @@ function members_message_no_create_roles() {
  * @uses add_submenu_page() Adds a submenu to the users menu.
  */
 function members_component_load_new_roles() {
-	global $members_new_role_page;
+	global $members;
 
 	/* Create the New Role page. */
-	$members_new_roles_page = add_submenu_page( 'users.php', __('New Role', 'members'), __('New Role', 'members'), 'create_roles', 'new-role', 'members_new_role_page' );
+	$members->new_roles_page = add_submenu_page( 'users.php', __('New Role', 'members'), __('New Role', 'members'), 'create_roles', 'new-role', 'members_new_role_page' );
 }
 
 /**

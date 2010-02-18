@@ -39,7 +39,7 @@ function members_message_no_edit_roles() {
  * @since 0.1
  */
 function members_component_load_edit_roles() {
-	global $members_manage_roles_page;
+	global $members;
 
 	/* Capability to manage roles.  Users need to change this on initial setup by giving at least one role the 'edit_roles' capability. */
 	if ( members_check_for_cap( 'edit_roles' ) )
@@ -48,7 +48,7 @@ function members_component_load_edit_roles() {
 		$edit_roles_cap = 'edit_users';
 
 	/* Create the Manage Roles page. */
-	$members_edit_roles_page = add_submenu_page( 'users.php', __('Roles', 'members'), __('Roles', 'members'), $edit_roles_cap, 'roles', 'members_edit_roles_page' );
+	$members->edit_roles_page = add_submenu_page( 'users.php', __('Roles', 'members'), __('Roles', 'members'), $edit_roles_cap, 'roles', 'members_edit_roles_page' );
 }
 
 /**

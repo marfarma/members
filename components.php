@@ -16,7 +16,7 @@
 add_action( 'init', 'members_create_default_components', 0 );
 
 /* Load the callback functions for each of the registered components. Components should be registered on 'init' with a priority less than '10'. */
-add_action( 'init', 'members_load_components', 0 );
+add_action( 'init', 'members_load_components', 5 );
 
 /**
  * Registers the initial components packaged with the plugin.
@@ -123,14 +123,7 @@ function get_members_component( $component ) {
  */
 function is_active_members_component( $component = '' ) {
 	global $members;
-
-	if ( !$component )
-		return false;
-
-
-	if ( !isset( $members->active_components ) )
-		$members->active_components = get_option( 'members_settings' );
-
+	
 	return (bool) isset( $members->active_components[$component] );
 }
 
@@ -202,11 +195,11 @@ function members_component_template_tags() {
  */
 function members_component_widgets() {
 	if ( is_active_members_component( 'widgets' ) ) {
-
+	
 		/* Load each of the widget files. */
 		require_once( MEMBERS_COMPONENTS . '/widgets/login.php' );
 		require_once( MEMBERS_COMPONENTS . '/widgets/users.php' );
-
+	
 		/* Register each widget. */
 		register_widget( 'Members_Widget_Login' );
 		register_widget( 'Members_Widget_Users' );

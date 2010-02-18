@@ -83,6 +83,9 @@ function members_core_globals_setup() {
 
 	/* Add the currently logged-in user to our global object. */
 	$members->current_user = $current_user;
+	
+	/* Get all active components */
+	$members->active_components = get_option( 'members_settings' );
 }
 
 /**
@@ -112,7 +115,7 @@ function members_register_settings() {
  *
  * @since 0.1
  */
-function members_settings_page() {
+function members_settings_page() {	
 	require_once( MEMBERS_DIR . 'settings.php' );
 }
 
