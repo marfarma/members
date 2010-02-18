@@ -48,10 +48,10 @@ global $members; ?>
 
 						<?php if ( !$component->name ) continue; ?>
 
-						<tr valign="top" class="<?php if ( $options[$component->name] ) echo 'active'; else echo 'inactive'; ?>">
+						<tr valign="top" class="<?php if ( isset($options[$component->name]) ) echo 'active'; else echo 'inactive'; ?>">
 
 							<th class="manage-column column-cb check-column">
-								<input type="checkbox" name="members_settings[<?php echo $component->name; ?>]" id="<?php echo $component->name; ?>" value="1" <?php checked( '1', $options[$component->name] ); ?> />
+								<input type="checkbox" name="members_settings[<?php echo $component->name; ?>]" id="<?php echo $component->name; ?>" value="1" <?php checked( '1', isset($options[$component->name]) ); ?> />
 							</th><!-- manage-column .column-cb .check-column -->
 	
 							<td class="plugin-title">

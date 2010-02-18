@@ -62,7 +62,7 @@ function register_members_component( $args = array() ) {
 
 	$name = $args['name'];
 
-	$members->registered_components[$name] = (object)$args;
+	$members->registered_components[$name] = (object) $args;
 }
 
 /**
@@ -131,7 +131,7 @@ function is_active_members_component( $component = '' ) {
 	if ( !isset( $members->active_components ) )
 		$members->active_components = get_option( 'members_settings' );
 
-	return $members->active_components[$component];
+	return (bool) isset( $members->active_components[$component] );
 }
 
 /* Default Components */
