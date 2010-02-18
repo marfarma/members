@@ -32,12 +32,11 @@ $avail_roles = array();
 $users_of_blog = get_users_of_blog();
 
 /* Loop through each user. */
-foreach ( (array)$users_of_blog as $blog_user ) {
+foreach ( (array) $users_of_blog as $blog_user ) {
 
 	$meta_values = unserialize( $blog_user->meta_value );
 
-	foreach ( ( array) $meta_values as $role => $value ) {
-
+	foreach ( (array) $meta_values as $role => $value ) {
 		if ( !isset( $avail_roles[$role] ) )
 			$avail_roles[$role] = 0;
 
@@ -166,7 +165,7 @@ ksort( $roles_loop_array ); ?>
 							<?php } ?>
 						</th><!-- .manage-column .column-cb .check-column -->
 
-						<td class='plugin-title'>
+						<td class="plugin-title">
 							<?php $edit_link = admin_url( wp_nonce_url( "users.php?page=roles&amp;action=edit&amp;role={$role}", members_get_nonce( 'edit-roles' ) ) ); ?> 
 
 							<a href="<?php echo $edit_link; ?>" title="<?php printf( __('Edit the %1$s role', 'members'), $name ); ?>"><strong><?php echo $name; ?></strong></a>
@@ -194,11 +193,11 @@ ksort( $roles_loop_array ); ?>
 
 						</td><!-- .plugin-title -->
 
-						<td class='desc'>
+						<td class="desc">
 							<p><?php echo $role; ?></p>
 						</td><!-- .desc -->
 
-						<td class='desc'>
+						<td class="desc">
 							<p><?php /* Check if any users are assigned to the role.  If so, display a link to the role's users page. */
 							if ( isset($avail_roles[$role]) && 1 < count($avail_roles[$role]) )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __('View all users with the %1$s role', 'members'), $name ) . '">' . sprintf( __('%1$s Users', 'members'), $avail_roles[$role] ) . '</a>'; 
@@ -209,7 +208,7 @@ ksort( $roles_loop_array ); ?>
 							?></p>
 						</td><!-- .desc -->
 
-						<td class='desc'>
+						<td class="desc">
 							<p>
 							<?php /* Check if the role has any capabilities. */
 

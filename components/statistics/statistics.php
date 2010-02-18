@@ -43,7 +43,7 @@ $all_roles = $active_roles = $inactive_roles = 0;
 /* Loop through all of the roles, adding each role to its respective category (active, inactive). */
 foreach ( $wp_roles->role_names as $role => $name ) {
 	$all_roles++;
-	if ( $avail_roles[$role] ) {
+	if ( isset($avail_roles[$role]) ) {
 		$active_roles++;
 		$active_roles_arr[$role] = $name;
 	}
@@ -93,7 +93,7 @@ ksort( $roles_loop_array ); ?>
 
 					<?php $name = str_replace( '|User role', '', $name ); ?>
 
-					<tr valign="top" class="<?php if ( $avail_roles[$role] ) echo 'active'; else echo 'inactive'; ?>">
+					<tr valign="top" class="<?php if ( isset($avail_roles[$role]) ) echo 'active'; else echo 'inactive'; ?>">
 
 						<td class='plugin-title'>
 							<?php $view_link = admin_url( wp_nonce_url( "users.php?page=stats#", members_get_nonce( 'view-stats' ) ) ); ?> 
@@ -105,7 +105,7 @@ ksort( $roles_loop_array ); ?>
 
 								<?php
 								/* If there are users, provide a link to the users page of that role. */
-								if ( $avail_roles[$role] ) { ?>
+								if ( isset($avail_roles[$role]) ) { ?>
 									| <a href="<?php echo admin_url( esc_url( "users.php?role={$role}" ) ); ?>" title="<?php printf( __( 'View all users with the %1$s role', 'members' ), $name ); ?>"><?php _e( 'View Users', 'members' ); ?></a> 
 								<?php } ?>
 
@@ -115,9 +115,9 @@ ksort( $roles_loop_array ); ?>
 
 						<td class='desc'>
 							<p><?php /* Check if any users are assigned to the role.  If so, display a link to the role's users page. */
-							if ( 1 < $avail_roles[$role] )
+							if ( isset($avail_roles[$role]) && 1 < count($avail_roles[$role]) )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __( 'View all users with the %1$s role', 'members' ), $name ) . '">' . sprintf( __( '%1$s Users', 'members' ), $avail_roles[$role] ) . '</a>'; 
-							elseif ( 1 == $avail_roles[$role] )
+							elseif ( isset($avail_roles[$role]) && 1 == count($avail_roles[$role]) )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __( 'View all users with the %1$s role', 'members' ), $name ) . '">' . __( '1 User', 'members' ) . '</a>'; 
 							else
 								echo '<em>' . __( 'No users have this role.', 'members' ) . '</em>';
