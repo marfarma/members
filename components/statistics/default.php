@@ -7,7 +7,7 @@
  * To view the stats page, a user must have a role with the 'view_stats' capability.
  *
  * @package Members
- * @subpackage Stats
+ * @subpackage Components
  */
 
 /* Add the stats page to the admin. */

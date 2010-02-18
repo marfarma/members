@@ -5,7 +5,7 @@
  * To view this page, a user must have a role with the capability of 'view_stats'.
  *
  * @package Members
- * @subpackage Stats
+ * @subpackage Components
  */
 
 /* Get the global $members variable. */
@@ -21,7 +21,7 @@ $avail_roles = array();
 $users_of_blog = get_users_of_blog();
 
 /* Loop through each user. */
-foreach ( (array)$users_of_blog as $blog_user ) {
+foreach ( (array) $users_of_blog as $blog_user ) {
 
 	$meta_values = unserialize( $blog_user->meta_value );
 

@@ -156,7 +156,6 @@ function members_access_check_shortcode( $attr, $content = null ) {
  * @uses members_get_login_form() Displays the login form.
  */
 function members_login_form_shortcode() {
-
 	return members_get_login_form();
 }
 

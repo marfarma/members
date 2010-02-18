@@ -19,6 +19,15 @@
  * @subpackage Components
  */
 
+/** 
+ * Adds the content permissions meta box to the post/page edit screen
+ * if the current user has the 'restrict_content' capability.
+ */
+add_action( 'admin_menu', 'members_content_permissions_create_meta_box' );
+
+/* Saves the content permissions metabox data to a custom field. */
+add_action( 'save_post', 'members_content_permissions_save_meta', 1, 2 );
+
 /* Add messages to the components form. */
 add_action( 'members_pre_components_form', 'members_message_no_restrict_content' );
 
