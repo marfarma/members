@@ -8,7 +8,7 @@
  */
 
 /* Check if the form has been submitted. */
-if ( $_POST['new-role-submit'] == 'Y' ) {
+if ( isset($_POST['new-role-submit']) && 'Y' == $_POST['new-role-submit'] ) {
 
 	/* Verify the nonce. */
 	check_admin_referer( members_get_nonce( 'new-role' ) );
@@ -22,7 +22,7 @@ if ( $_POST['new-role-submit'] == 'Y' ) {
 		$new_user_caps = null;
 
 	/* Check if both a role name and role were submitted. */
-	if ( $_POST['role-name'] && $_POST['role-id'] ) {
+	if ( isset($_POST['role-name']) && isset($_POST['role-id']) ) {
 
 		/* Sanitize the new role, removing any unwanted characters. */
 		$new_role = strip_tags( $_POST['role-id'] );
@@ -44,7 +44,7 @@ if ( $_POST['new-role-submit'] == 'Y' ) {
 
 	<h2><?php _e('Add a new user role', 'members'); ?></h2>
 
-	<?php if ( $new_role_added ) members_admin_message( '', sprintf( __('The %1$s role has been created.', 'members'), $_POST['role-name'] ) ); ?>
+	<?php if ( isset($new_role_added) and $new_role_added ) members_admin_message( '', sprintf( __('The %1$s role has been created.', 'members'), $_POST['role-name'] ) ); ?>
 
 	<?php do_action( 'members_pre_new_role_form' ); // Available action hook for displaying messages. ?>
 
