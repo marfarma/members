@@ -28,9 +28,6 @@ if ( isset($_POST['edit-role-saved']) && 'Y' == $_POST['edit-role-saved'] ) {
 		/* Get the posted capability. */
 		$posted_cap = isset($_POST['role-caps']["{$role->name}-{$cap}"]) ? $_POST['role-caps']["{$role->name}-{$cap}"] : false;
 		
-		if ( false == $posted_cap )
-			continue;
-
 		/* If the role doesn't have the capability and it was selected, add it. */
 		if ( !$role->has_cap( $cap ) && $posted_cap )
 			$role->add_cap( $cap );
