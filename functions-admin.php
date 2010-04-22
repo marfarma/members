@@ -125,6 +125,7 @@ function members_get_default_capabilities() {
 	/* Create an array of all the default WordPress capabilities so the user doesn't accidentally get rid of them. */
 	$defaults = array(
 		'activate_plugins',
+		'add_users',
 		'create_users',
 		'delete_others_pages',
 		'delete_others_posts',
@@ -157,6 +158,7 @@ function members_get_default_capabilities() {
 		'manage_links',
 		'manage_options',
 		'moderate_comments',
+		'promote_users',
 		'publish_pages',
 		'publish_posts',
 		'read',
