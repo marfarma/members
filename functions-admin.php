@@ -154,6 +154,7 @@ function members_get_default_capabilities() {
 		'import',
 		'install_plugins',
 		'install_themes',
+		'list_users',
 		'manage_categories',
 		'manage_links',
 		'manage_options',
