@@ -25,8 +25,9 @@ add_action( 'init', 'members_load_components', 5 );
  * @since 0.1
  */
 function members_create_default_components() {
-	register_members_component( array( 'name' => 'edit_roles', 'label' => __('Edit Roles', 'members'), 'callback' => 'members_component_edit_roles', 'requires' => false, 'description' => __('The <em>Edit Roles</em> component allows you to manage all roles on your site. You can change which capabilities individual roles have. Once you\'ve selected this component, you should immediately give at least one role the <code>edit_roles</code> capability. This makes sure only the roles you select can edit roles.', 'members') ) );
-	register_members_component( array( 'name' => 'new_roles', 'label' => __('New Roles', 'members'), 'callback' => 'members_component_new_roles', 'requires' => false, 'description' => __('The <em>New Roles</em> component allows you to create new roles on your site. To use this component, you must have the <code>create_roles</code> capability. This makes sure only the roles you select can create new roles.', 'members') ) );
+	register_members_component( array( 'name' => 'role_manager', 'label' => __( 'Role Manager', 'members' ), 'callback' => 'members_component_role_manager', 'requires' => false, 'description' => __('The <em>Role Manager</em> component allows you to manage roles on your site by giving you the ability to create, edit, and delete any role.', 'members' ) ) );
+	//register_members_component( array( 'name' => 'edit_roles', 'label' => __('Edit Roles', 'members'), 'callback' => 'members_component_edit_roles', 'requires' => false, 'description' => __('The <em>Edit Roles</em> component allows you to manage all roles on your site. You can change which capabilities individual roles have. Once you\'ve selected this component, you should immediately give at least one role the <code>edit_roles</code> capability. This makes sure only the roles you select can edit roles.', 'members') ) );
+	//register_members_component( array( 'name' => 'new_roles', 'label' => __('New Roles', 'members'), 'callback' => 'members_component_new_roles', 'requires' => false, 'description' => __('The <em>New Roles</em> component allows you to create new roles on your site. To use this component, you must have the <code>create_roles</code> capability. This makes sure only the roles you select can create new roles.', 'members') ) );
 	register_members_component( array( 'name' => 'content_permissions', 'label' => __('Content Permissions', 'members'), 'callback' => 'members_component_content_permissions', 'requires' => false, 'description' => __('Adds an additional meta box for the post/page editor that allows you to grant permissions for who can read the content based on the the user\'s capabilities or role. Only roles with the <code>restrict_content</code> capability will be able to use this component.', 'members') ) );
 	register_members_component( array( 'name' => 'shortcodes', 'label' => __('Shortcodes', 'members'), 'callback' => 'members_component_shortcodes', 'requires' => false, 'description' => __('Provides a set of shortcodes that may be used to restrict or provide access to certain areas of your site from within the post editor (or other areas where shortcodes are allowed).', 'members') ) );
 	register_members_component( array( 'name' => 'template_tags', 'label' => __('Template Tags', 'members'), 'callback' => 'members_component_template_tags', 'requires' => false, 'description' => __('Provides additional template tags for use within your WordPress theme for restricting or providing access to certain content.', 'members') ) );
@@ -130,10 +131,22 @@ function is_active_members_component( $component = '' ) {
 /* Default Components */
 
 /**
+ * Mange roles component.  This allows you to create, edit, and delete roles
+ * and each role's capabilities.
+ *
+ * @since 0.2
+ */
+function members_component_role_manager() {
+	if ( is_admin() && is_active_members_component( 'role_manager' ) )
+		require_once( MEMBERS_COMPONENTS . '/role-manager/default.php' );
+}
+
+/**
  * Manage roles component.  This allows you to manage each role's set
  * of capabilities.
  *
  * @since 0.1
+ * @deprecated 0.2
  */
 function members_component_edit_roles() {
 	if ( is_admin() && is_active_members_component( 'edit_roles' ) )
@@ -144,6 +157,7 @@ function members_component_edit_roles() {
  * New roles component. This allows you to create new roles.
  *
  * @since 0.1
+ * @deprecated 0.2
  */
 function members_component_new_roles() {
 	if ( is_admin() && is_active_members_component( 'new_roles' ) )

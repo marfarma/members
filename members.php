@@ -131,8 +131,14 @@ function members_settings_validate( $input ) {
 	if ( !is_array( $input ) )
 		return $input;
 	
-	foreach ( $input as $key => $value )
-		$input[$key] = ( $input[$key] == 1 ? 1 : 0 );
+	foreach ( $input as $key => $value ) {
+
+		/* Disable old edit_roles and new_roles components. */
+		if ( 'edit_roles' == $input[$key] || 'new_roles' == $input[$key] )
+			$input[$key] = false;
+		else
+			$input[$key] = ( $input[$key] == 1 ? 1 : 0 );
+	}
 
 	return $input;
 }
