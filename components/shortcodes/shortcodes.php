@@ -76,7 +76,7 @@ function members_is_user_logged_in_shortcode( $attr, $content = null ) {
 		return '';
 
 	/* Return the content. */
-	return $content;
+	return do_shortcode( $content );
 }
 
 /**
@@ -99,7 +99,7 @@ function members_feed_shortcode( $attr, $content = null ) {
 		return '';
 
 	/* Return the content. */
-	return $content;
+	return do_shortcode( $content );
 }
 
 /**
@@ -131,15 +131,15 @@ function members_access_check_shortcode( $attr, $content = null ) {
 
 	/* If the current user has the input capability, show the content. */
 	if ( $capability && current_user_can( $capability ) )
-		return $content;
+		return do_shortcode( $content );
 
 	/* If the current user has the input role, show the content. */
 	elseif ( $role && current_user_can( $role ) )
-		return $content;
+		return do_shortcode( $content );
 
 	/* If $feed was set to true and we're currently displaying a feed, show the content. */
 	elseif ( $feed && 'false' !== $feed && is_feed() )
-		return $content;
+		return do_shortcode( $content );
 
 	/* If there is no content, return nothing. */
 	elseif ( !is_null( $content ) )
