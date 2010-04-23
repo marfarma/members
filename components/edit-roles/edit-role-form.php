@@ -121,22 +121,22 @@ if ( isset($_POST['edit-role-saved']) && 'Y' == $_POST['edit-role-saved'] ) {
 							<?php _e('Add up to six new capabilities with this form for this role (more can be added later). Please only use letters, numbers, and underscores.', 'members'); ?>
 							<br /><br />
 							<p style="margin: 0 0 5px 0; float:left; width: 32.67%;">
-								<input id="new-cap-1" name="new-cap[]" value="" size="20" /> 
+								<input type="text" id="new-cap-1" name="new-cap[]" value="" size="20" /> 
 							</p>
 							<p style="margin: 0 0 5px 0; float:left; width: 32.67%;">
-								<input id="new-cap-2" name="new-cap[]" value="" size="20" /> 
+								<input type="text" id="new-cap-2" name="new-cap[]" value="" size="20" /> 
 							</p>
 							<p style="margin: 0 0 5px 0; float:left; width: 32.67%;">
-								<input id="new-cap-3" name="new-cap[]" value="" size="20" /> 
+								<input type="text" id="new-cap-3" name="new-cap[]" value="" size="20" /> 
 							</p>
 							<p style="margin: 0 0 5px 0; float:left; width: 32.67%;">
-								<input id="new-cap-4" name="new-cap[]" value="" size="20" /> 
+								<input type="text" id="new-cap-4" name="new-cap[]" value="" size="20" /> 
 							</p>
 							<p style="margin: 0 0 5px 0; float:left; width: 32.67%;">
-								<input id="new-cap-5" name="new-cap[]" value="" size="20" /> 
+								<input type="text" id="new-cap-5" name="new-cap[]" value="" size="20" /> 
 							</p>
 							<p style="margin: 0 0 5px 0; float:left; width: 32.67%;">
-								<input id="new-cap-6" name="new-cap[]" value="" size="20" /> 
+								<input type="text" id="new-cap-6" name="new-cap[]" value="" size="20" /> 
 							</p>
 
 						</td>

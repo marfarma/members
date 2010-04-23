@@ -77,7 +77,7 @@ if ( isset($_POST['new-role-submit']) && 'Y' == $_POST['new-role-submit'] ) {
 						<td>
 							<?php _e('<strong>Required:</strong> Enter the name of your role.  This is a unique key that should only contain numbers, letters, and underscores.  Please don\'t add spaces or other odd characters.', 'members'); ?>
 							<br />
-							<input id="role-id" name="role-id" value="" size="30" />
+							<input type="text" id="role-id" name="role-id" value="" size="30" />
 						</td>
 					</tr>
 
@@ -88,7 +88,7 @@ if ( isset($_POST['new-role-submit']) && 'Y' == $_POST['new-role-submit'] ) {
 						<td>
 							<?php _e('<strong>Required:</strong> Enter a label your role.  This will be the title that is displayed in most cases.', 'members'); ?>
 							<br />
-							<input id="role-name" name="role-name" value="" size="30" />
+							<input type="text" id="role-name" name="role-name" value="" size="30" />
 						</td>
 					</tr>
 
