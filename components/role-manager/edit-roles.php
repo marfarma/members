@@ -199,9 +199,9 @@ ksort( $roles_loop_array ); ?>
 
 						<td class="desc">
 							<p><?php /* Check if any users are assigned to the role.  If so, display a link to the role's users page. */
-							if ( isset($avail_roles[$role]) && 1 < count($avail_roles[$role]) )
+							if ( isset($avail_roles[$role]) && 1 < $avail_roles[$role] )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __('View all users with the %1$s role', 'members'), $name ) . '">' . sprintf( __('%1$s Users', 'members'), $avail_roles[$role] ) . '</a>'; 
-							elseif ( isset($avail_roles[$role]) && 1 == count($avail_roles[$role]) )
+							elseif ( isset($avail_roles[$role]) && 1 == $avail_roles[$role] )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __('View all users with the %1$s role', 'members'), $name ) . '">' . __('1 User', 'members') . '</a>'; 
 							else
 								echo '<em>' . __('No users have this role.', 'members') . '</em>';
