@@ -33,6 +33,12 @@ function members_component_add_stats_page() {
  * @since 0.2
  */
 function members_component_stats_page() {
+
+	$stats = get_option( 'members_statistics' );
+
+	if ( empty( $stats ) )
+		members_component_stats_create_initial_stats();
+
 	require_once( MEMBERS_COMPONENTS . '/statistics/statistics.php' );
 }
 
@@ -47,5 +53,85 @@ function members_component_stats_capabilities( $capabilities ) {
 
 	return $capabilities;
 }
+
+add_action( 'user_register', 'update_stats_package' );
+
+function update_stats_package( $user_id ) {
+
+	$stats = get_option( 'members_statistics' );
+	$new_user = new WP_User( $user_id );
+
+	if ( is_array( $new_user->roles ) )
+		$role = $new_user->roles[0];
+
+	$stats[$role][$new_user->ID] = array(
+		'id' => $new_user->ID,
+		'role' => $role,
+		'date' => $new_user->user_registered,
+		'year' => mysql2date( 'Y', $new_user->user_registered ),
+		'month' => mysql2date( 'm', $new_user->user_registered ),
+		'day' => mysql2date( 'd', $new_user->user_registered ),
+	);
+
+	update_option( 'members_statistics', $stats );
+}
+
+
+/**
+ * If the stats package was previously unused, this means that prior users stats were
+ * not tracked.  So, we're going to create some default stats based on the user registration
+ * date and user role.
+ *
+ * @since 0.2
+ */
+function members_component_stats_create_initial_stats() {
+	global $wp_roles;
+
+	$stats = array();
+
+	foreach ( $wp_roles->role_objects as $key => $role ) {
+
+		$sta = array();
+
+		$search = new WP_User_Search( '', '', $role->name );
+
+		$users = $search->get_results();
+
+		if ( isset( $users ) && is_array( $users ) ) {
+
+			foreach ( $users as $user ) {
+				$new_user = new WP_User( $user );
+
+				$sta[$new_user->ID] = array(
+					'id' => $new_user->ID,
+					'role' => $role->name,
+					'date' => $new_user->user_registered,
+					'year' => mysql2date( 'Y', $new_user->user_registered ),
+					'month' => mysql2date( 'm', $new_user->user_registered ),
+					'day' => mysql2date( 'd', $new_user->user_registered ),
+				);
+
+			}
+		}
+
+		$stats[$role->name] = $sta;
+	}
+
+	add_option( 'members_statistics', $stats );
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>

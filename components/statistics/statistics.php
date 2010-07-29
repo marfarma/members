@@ -8,6 +8,27 @@
  * @subpackage Components
  */
 
+
+/* Get the current action performed by the user. */
+//$view_role = isset( $_REQUEST['role'] ) ? $_REQUEST['role'] : false;
+//$view_stats = isset( $_REQUEST['view'] ) ? $_REQUEST['view'] : false;
+
+if ( isset( $_REQUEST['role'] ) && isset( $_REQUEST['view'] ) ) {
+
+		/* Verify the referer. */
+		check_admin_referer( members_get_nonce( 'view-stats' ) );
+
+		/* Set some default variables. */
+		$role = $_REQUEST['role'];
+		$view = $_REQUEST['view'];
+
+		/* Load the edit role form. */
+		require_once( 'view-stats.php' );
+}
+
+else {
+
+
 /* Get the global $members variable. */
 global $members, $wp_roles;
 
@@ -96,7 +117,7 @@ ksort( $roles_loop_array ); ?>
 					<tr valign="top" class="<?php if ( isset($avail_roles[$role]) ) echo 'active'; else echo 'inactive'; ?>">
 
 						<td class='plugin-title'>
-							<?php $view_link = admin_url( wp_nonce_url( "users.php?page=stats#", members_get_nonce( 'view-stats' ) ) ); ?> 
+							<?php $view_link = admin_url( wp_nonce_url( "users.php?page=stats&amp;role={$role}&amp;view=month", members_get_nonce( 'view-stats' ) ) ); ?> 
 
 							<a href="<?php echo $view_link; ?>" title="<?php printf( __( 'View stats for the %1$s role', 'members' ), $name ); ?>"><strong><?php echo $name; ?></strong></a>
 
@@ -115,9 +136,9 @@ ksort( $roles_loop_array ); ?>
 
 						<td class='desc'>
 							<p><?php /* Check if any users are assigned to the role.  If so, display a link to the role's users page. */
-							if ( isset($avail_roles[$role]) && 1 < count($avail_roles[$role]) )
+							if ( isset($avail_roles[$role]) && 1 < $avail_roles[$role] )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __( 'View all users with the %1$s role', 'members' ), $name ) . '">' . sprintf( __( '%1$s Users', 'members' ), $avail_roles[$role] ) . '</a>'; 
-							elseif ( isset($avail_roles[$role]) && 1 == count($avail_roles[$role]) )
+							elseif ( isset($avail_roles[$role]) && 1 == $avail_roles[$role] )
 								echo '<a href="' . admin_url( esc_url( "users.php?role={$role}" ) ) . '" title="' . sprintf( __( 'View all users with the %1$s role', 'members' ), $name ) . '">' . __( '1 User', 'members' ) . '</a>'; 
 							else
 								echo '<em>' . __( 'No users have this role.', 'members' ) . '</em>';
@@ -145,3 +166,5 @@ ksort( $roles_loop_array ); ?>
 	</div><!-- #poststuff -->
 
 </div><!-- .wrap -->
+
+<?php } ?>
